@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="theme-color"
+    content="#0b0b0d"
+  />
+
+  <title>
+    FitForge | Trainer Dashboard
+  </title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
+  <style>
+    body{
+      min-height:100vh
+    }
+
+    .dashboard{
+      width:min(1320px,94%);
+      margin:0 auto;
+      padding:35px 0 60px
+    }
+
+    .admin-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      margin-bottom:20px
+    }
+
+    .admin-head h1{
+      font-family:'Bebas Neue';
+      font-size:48px;
+      font-weight:400
+    }
+
+    .admin-head h1 span{
+      color:var(--red)
+    }
+
+    .admin-actions{
+      display:flex;
+      gap:10px;
+      align-items:center
+    }
+
+    .admin-grid{
+      display:grid;
+      grid-template-columns:340px 1fr;
+      min-height:680px;
+      border:1px solid var(--line);
+      background:#0d0d0f;
+      box-shadow:var(--shadow)
+    }
+
+    .sidebar{
+      border-right:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      min-width:0
+    }
+
+    .sidebar-tools{
+      padding:14px;
+      border-bottom:1px solid var(--line)
+    }
+
+    .sidebar-tools input{
+      width:100%;
+      background:#09090a;
+      color:#fff;
+      border:1px solid var(--line);
+      padding:12px 13px;
+      outline:none
+    }
+
+    .client-list{
+      overflow:auto
+    }
+
+    .client-item{
+      display:block;
+      width:100%;
+      background:transparent;
+      color:inherit;
+      border:0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      text-align:left;
+      padding:16px;
+      transition:.2s
+    }
+
+    .client-item:hover,
+    .client-item.active{
+      background:rgba(255,48,48,.08)
+    }
+
+    .client-main{
+      display:flex;
+      gap:10px
+    }
+
+    .client-avatar{
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      background:#1b1b1e;
+      color:var(--red);
+      font-weight:900;
+      font-size:11px;
+      flex:0 0 auto
+    }
+
+    .client-text{
+      min-width:0;
+      flex:1
+    }
+
+    .client-name{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:12px;
+      font-weight:800
+    }
+
+    .client-time{
+      color:#6d6d73;
+      font-size:9px;
+      white-space:nowrap
+    }
+
+    .client-goal{
+      color:#898990;
+      font-size:10px;
+      margin-top:2px
+    }
+
+    .client-preview{
+      color:#6d6d73;
+      font-size:10px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      margin-top:8px
+    }
+
+    .unread{
+      min-width:20px;
+      height:20px;
+      padding:0 6px;
+      display:grid;
+      place-items:center;
+      border-radius:20px;
+      background:var(--red);
+      color:#fff;
+      font-size:9px;
+      font-weight:900
+    }
+
+    .main-chat{
+      display:flex;
+      flex-direction:column;
+      min-width:0
+    }
+
+    .login-state{
+      display:grid;
+      place-items:center;
+      flex:1;
+      padding:30px
+    }
+
+    .login-card{
+      width:min(430px,100%);
+      border:1px solid var(--line);
+      background:#121214;
+      padding:30px
+    }
+
+    .login-card h2{
+      font-size:46px;
+      margin-bottom:14px
+    }
+
+    .login-card p{
+      color:#85858c;
+      font-size:12px;
+      margin-bottom:22px
+    }
+
+    .field{
+      margin-bottom:14px
+    }
+
+    .field label{
+      display:block;
+      color:#87878e;
+      font-size:9px;
+      font-weight:900;
+      letter-spacing:1.6px;
+      margin-bottom:7px
+    }
+
+    .field input{
+      width:100%;
+      background:#09090a;
+      color:white;
+      border:1px solid var(--line);
+      padding:13px;
+      outline:none
+    }
+
+    .login-card button{
+      width:100%;
+      padding:13px;
+      border:0;
+      background:var(--red);
+      color:white;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:1.3px
+    }
+
+    .error-msg{
+      min-height:20px;
+      color:#ff7777;
+      font-size:11px;
+      margin-top:12px
+    }
+
+    .chat-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:16px;
+      border-bottom:1px solid var(--line)
+    }
+
+    .chat-head-main{
+      min-width:0
+    }
+
+    .chat-head-main strong{
+      display:block;
+      font-size:14px
+    }
+
+    .chat-head-main span{
+      display:block;
+      color:#7c7c83;
+      font-size:10px
+    }
+
+    .head-actions{
+      margin-left:auto;
+      display:flex;
+      gap:8px
+    }
+
+    .tiny-btn{
+      padding:8px 10px;
+      background:transparent;
+      color:#bbb;
+      border:1px solid var(--line);
+      font-size:9px;
+      text-transform:uppercase;
+      letter-spacing:1px
+    }
+
+    .tiny-btn.danger{
+      border-color:rgba(255,48,48,.4);
+      color:#ff7777
+    }
+
+    .admin-messages{
+      flex:1;
+      min-height:420px;
+      overflow:auto;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px
+    }
+
+    .admin-empty{
+      margin:auto;
+      text-align:center;
+      color:#666;
+      font-size:12px
+    }
+
+    .admin-msg{
+      max-width:78%;
+      padding:11px 13px;
+      border:1px solid var(--line);
+      font-size:13px;
+      line-height:1.45;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere
+    }
+
+    .admin-msg.trainer{
+      align-self:flex-end;
+      background:rgba(255,48,48,.14);
+      border-color:rgba(255,48,48,.25)
+    }
+
+    .admin-msg.visitor{
+      align-self:flex-start;
+      background:#17171a
+    }
+
+    .admin-msg .meta{
+      display:flex;
+      justify-content:flex-end;
+      gap:7px;
+      color:#6d6d73;
+      font-size:9px;
+      margin-top:5px
+    }
+
+    .admin-form{
+      display:grid;
+      grid-template-columns:1fr 54px;
+      gap:10px;
+      padding:14px;
+      border-top:1px solid var(--line)
+    }
+
+    .admin-form input{
+      width:100%;
+      background:#09090a;
+      color:#fff;
+      border:1px solid var(--line);
+      padding:13px;
+      outline:none
+    }
+
+    .admin-form button{
+      border:0;
+      background:var(--red);
+      color:#fff;
+      font-size:18px
+    }
+
+    .dashboard-status{
+      font-size:10px;
+      color:#77777e
+    }
+
+    .mobile-drawer-btn{
+      display:none
+    }
+
+    @media(max-width:900px){
+
+      .admin-grid{
+        grid-template-columns:1fr
+      }
+
+      .sidebar{
+        display:none
+      }
+
+      .sidebar.open{
+        display:flex;
+        position:fixed;
+        z-index:210;
+        top:0;
+        left:0;
+        bottom:0;
+        width:min(350px,88vw);
+        background:#0b0b0d;
+        box-shadow:25px 0 70px rgba(0,0,0,.55)
+      }
+
+      .mobile-drawer-btn{
+        display:inline-flex
+      }
+
+      .drawer-overlay{
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:205;
+        background:rgba(0,0,0,.65)
+      }
+
+      .drawer-overlay.show{
+        display:block
+      }
+
+      .main-chat{
+        min-height:680px
+      }
+
+      .admin-head{
+        align-items:flex-start;
+        flex-direction:column
+      }
+    }
+
+    @media(max-width:520px){
+
+      .dashboard{
+        width:94%
+      }
+
+      .admin-head h1{
+        font-size:40px
+      }
+
+      .head-actions{
+        gap:5px
+      }
+
+      .tiny-btn{
+        font-size:8px;
+        padding:7px
+      }
+
+      .admin-msg{
+        max-width:90%
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="dashboard">
+
+    <header class="admin-head">
+
+      <div>
+        <span class="eyebrow">
+          FITFORGE • COACHING HUB
+        </span>
+
+        <h1>
+          TRAINER <span>DASHBOARD</span>
+        </h1>
+      </div>
+
+      <div class="admin-actions">
+
+        <button
+          class="tiny-btn mobile-drawer-btn"
+          id="openClientsBtn"
+        >
+          ☰ Clients
+        </button>
+
+        <button
+          class="tiny-btn"
+          id="alertsBtn"
+        >
+          🔔 Enable Alerts
+        </button>
+
+        <button
+          class="tiny-btn danger hidden"
+          id="logoutBtn"
+        >
+          Logout
+        </button>
+
+      </div>
+    </header>
+
+    <div
+      class="dashboard-status"
+      id="dashboardStatus"
+    >
+      Secure Supabase dashboard
+    </div>
+
+    <div class="admin-grid">
+
+      <aside
+        class="sidebar"
+        id="sidebar"
+      >
+
+        <div class="sidebar-tools">
+
+          <input
+            id="clientSearch"
+            placeholder="Search clients…"
+            autocomplete="off"
+          />
+
+        </div>
+
+        <div
+          class="client-list"
+          id="clientList"
+        >
+          <div class="admin-empty">
+            Login to load clients.
+          </div>
+        </div>
+
+      </aside>
+
+      <section class="main-chat">
+
+        <div
+          id="loginState"
+          class="login-state"
+        >
+
+          <form
+            id="loginForm"
+            class="login-card"
+          >
+
+            <span class="eyebrow">
+              PRIVATE COACH ACCESS
+            </span>
+
+            <h2>
+              TRAINER <span>LOGIN</span>
+            </h2>
+
+            <p>
+              Use your existing Supabase trainer account.
+              No database changes are required.
+            </p>
+
+            <div class="field">
+
+              <label for="trainerEmail">
+                EMAIL
+              </label>
+
+              <input
+                id="trainerEmail"
+                type="email"
+                required
+                autocomplete="username"
+              />
+
+            </div>
+
+            <div class="field">
+
+              <label for="trainerPassword">
+                PASSWORD
+              </label>
+
+              <input
+                id="trainerPassword"
+                type="password"
+                required
+                autocomplete="current-password"
+              />
+
+            </div>
+
+            <button type="submit">
+              Enter Dashboard
+            </button>
+
+            <div
+              class="error-msg"
+              id="loginError"
+            ></div>
+
+          </form>
+        </div>
+
+        <div
+          id="conversationState"
+          class="hidden"
+          style="display:flex;flex-direction:column;flex:1;min-height:0"
+        >
+
+          <div class="chat-head">
+
+            <div
+              class="coach-avatar"
+              id="selectedAvatar"
+            >
+              FF
+            </div>
+
+            <div class="chat-head-main">
+
+              <strong id="selectedName">
+                Select a client
+              </strong>
+
+              <span id="selectedDetails">
+                Choose a conversation from the client list.
+              </span>
+
+            </div>
+
+            <div class="head-actions">
+
+              <button
+                class="tiny-btn"
+                id="markSeenBtn"
+              >
+                Mark Seen
+              </button>
+
+              <button
+                class="tiny-btn danger"
+                id="statusBtn"
+              >
+                Close
+              </button>
+
+            </div>
+
+          </div>
+
+          <div
+            class="admin-messages"
+            id="adminMessages"
+          >
+            <div class="admin-empty">
+              Select a client.
+            </div>
+          </div>
+
+          <div
+            class="typing-row"
+            id="adminTypingRow"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+            <em>Client is typing…</em>
+          </div>
+
+          <form
+            class="admin-form"
+            id="adminChatForm"
+          >
+
+            <input
+              id="adminChatInput"
+              maxlength="2000"
+              autocomplete="off"
+              placeholder="Reply to your client…"
+              required
+            />
+
+            <button type="submit">
+              ➤
+            </button>
+
+          </form>
+
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+  <div
+    class="drawer-overlay"
+    id="drawerOverlay"
+  ></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://meawwgrgdkqepnybsqzj.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_c02NxPEZ4iRMb9t9j1PXyg_AFAYy02q";
+
+    const sb =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+    const loginState =
+      document.getElementById(
+        'loginState'
+      );
+
+    const conversationState =
+      document.getElementById(
+        'conversationState'
+      );
+
+    const loginForm =
+      document.getElementById(
+        'loginForm'
+      );
+
+    const loginError =
+      document.getElementById(
+        'loginError'
+      );
+
+    const logoutBtn =
+      document.getElementById(
+        'logoutBtn'
+      );
+
+    const alertsBtn =
+      document.getElementById(
+        'alertsBtn'
+      );
+
+    const clientList =
+      document.getElementById(
+        'clientList'
+      );
+
+    const clientSearch =
+      document.getElementById(
+        'clientSearch'
+      );
+
+    const adminMessages =
+      document.getElementById(
+        'adminMessages'
+      );
+
+    const adminChatForm =
+      document.getElementById(
+        'adminChatForm'
+      );
+
+    const adminChatInput =
+      document.getElementById(
+        'adminChatInput'
+      );
+
+    const selectedName =
+      document.getElementById(
+        'selectedName'
+      );
+
+    const selectedDetails =
+      document.getElementById(
+        'selectedDetails'
+      );
+
+    const selectedAvatar =
+      document.getElementById(
+        'selectedAvatar'
+      );
+
+    const statusBtn =
+      document.getElementById(
+        'statusBtn'
+      );
+
+    const markSeenBtn =
+      document.getElementById(
+        'markSeenBtn'
+      );
+
+    const adminTypingRow =
+      document.getElementById(
+        'adminTypingRow'
+      );
+
+    const dashboardStatus =
+      document.getElementById(
+        'dashboardStatus'
+      );
+
+    const sidebar =
+      document.getElementById(
+        'sidebar'
+      );
+
+    const openClientsBtn =
+      document.getElementById(
+        'openClientsBtn'
+      );
+
+    const drawerOverlay =
+      document.getElementById(
+        'drawerOverlay'
+      );
+
+    let trainerUser = null;
+    let conversations = [];
+    let messages = [];
+    let selectedConversation = null;
+    let messageChannel = null;
+    let presenceChannel = null;
+    let typingTimer = null;
+
+    function esc(v='') {
+
+      return String(v)
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+        .replaceAll(
+          "'",
+          '&#039;'
+        );
+    }
+
+    function time(v) {
+
+      return new Date(v)
+        .toLocaleTimeString(
+          [],
+          {
+            hour:'2-digit',
+            minute:'2-digit'
+          }
+        );
+    }
+
+    function dateTime(v) {
+
+      return new Date(v)
+        .toLocaleString(
+          [],
+          {
+            month:'short',
+            day:'numeric',
+            hour:'2-digit',
+            minute:'2-digit'
+          }
+        );
+    }
+
+    function setLoggedIn(
+      loggedIn
+    ) {
+
+      loginState.classList.toggle(
+        'hidden',
+        loggedIn
+      );
+
+      conversationState.classList.toggle(
+        'hidden',
+        !loggedIn
+      );
+
+      logoutBtn.classList.toggle(
+        'hidden',
+        !loggedIn
+      );
+
+      if (!loggedIn) {
+
+        clientList.innerHTML =
+          '<div class="admin-empty">Login to load clients.</div>';
+
+        selectedConversation = null;
+      }
+    }
+
+    async function loadInbox() {
+
+      const {
+        data: convs,
+        error: cErr
+      } = await sb.rpc(
+        'get_trainer_conversations'
+      );
+
+      if (cErr) {
+        throw cErr;
+      }
+
+      conversations =
+        convs || [];
+
+      const {
+        data: msgRows,
+        error: mErr
+      } = await sb
+        .from('messages')
+        .select(
+          'id, conversation_id, sender_id, sender_type, message, created_at, seen_at'
+        )
+        .order(
+          'created_at',
+          {
+            ascending:true
+          }
+        );
+
+      if (mErr) {
+        throw mErr;
+      }
+
+      messages =
+        msgRows || [];
+
+      renderClientList();
+
+      if (selectedConversation) {
+
+        const fresh =
+          conversations.find(
+            c =>
+              c.id ===
+              selectedConversation.id
+          );
+
+        if (fresh) {
+          await selectConversation(
+            fresh,
+            false
+          );
+        }
+
+      } else if (
+        conversations.length
+      ) {
+
+        await selectConversation(
+          conversations[0],
+          false
+        );
+      }
+    }
+
+    function latestFor(c) {
+
+      const rows =
+        messages.filter(
+          m =>
+            m.conversation_id ===
+            c.id
+        );
+
+      return rows[
+        rows.length - 1
+      ] || null;
+    }
+
+    function unreadFor(c) {
+
+      return messages.filter(
+        m =>
+          m.conversation_id === c.id &&
+          m.sender_type !== 'trainer' &&
+          !m.seen_at
+      ).length;
+    }
+
+    function renderClientList() {
+
+      const query =
+        (clientSearch.value || '')
+          .trim()
+          .toLowerCase();
+
+      const filtered =
+        conversations.filter(
+          c =>
+            `${c.visitor_name || 'Client'} ${c.fitness_goal || ''}`
+              .toLowerCase()
+              .includes(query)
+        );
+
+      if (!filtered.length) {
+
+        clientList.innerHTML =
+          '<div class="admin-empty">No clients found.</div>';
+
+        return;
+      }
+
+      clientList.innerHTML =
+        filtered.map(c => {
+
+          const latest =
+            latestFor(c);
+
+          const unread =
+            unreadFor(c);
+
+          const active =
+            selectedConversation?.id === c.id;
+
+          const initials =
+            (c.visitor_name || 'C')
+              .split(/\s+/)
+              .map(x => x[0])
+              .join('')
+              .slice(0,2)
+              .toUpperCase();
+
+          return `
+            <button
+              class="client-item ${active ? 'active' : ''}"
+              data-id="${c.id}"
+            >
+              <div class="client-main">
+
+                <div class="client-avatar">
+                  ${esc(initials)}
+                </div>
+
+                <div class="client-text">
+
+                  <div class="client-name">
+
+                    <span>
+                      ${esc(c.visitor_name || 'Client')}
+                    </span>
+
+                    <span class="client-time">
+                      ${
+                        latest
+                          ? time(latest.created_at)
+                          : dateTime(c.created_at)
+                      }
+                    </span>
+
+                  </div>
+
+                  <div class="client-goal">
+                    ${esc(c.fitness_goal || 'Fitness')}
+                  </div>
+
+                  <div class="client-preview">
+                    ${
+                      latest
+                        ? esc(latest.message)
+                        : 'No messages yet.'
+                    }
+                  </div>
+
+                </div>
+
+                ${
+                  unread
+                    ? `<span class="unread">${unread > 9 ? '9+' : unread}</span>`
+                    : ''
+                }
+
+              </div>
+            </button>
+          `;
+
+        }).join('');
+
+      clientList
+        .querySelectorAll(
+          '.client-item'
+        )
+        .forEach(btn => {
+
+          btn.addEventListener(
+            'click',
+            async () => {
+
+              const c =
+                conversations.find(
+                  x =>
+                    x.id ===
+                    btn.dataset.id
+                );
+
+              if (c) {
+                await selectConversation(
+                  c,
+                  true
+                );
+              }
+
+            }
+          );
+
+        });
+    }
+
+    function renderConversationMessages() {
+
+      const rows =
+        messages.filter(
+          m =>
+            m.conversation_id ===
+            selectedConversation?.id
+        );
+
+      if (!rows.length) {
+
+        adminMessages.innerHTML =
+          '<div class="admin-empty">No messages yet.</div>';
+
+        return;
+      }
+
+      adminMessages.innerHTML =
+        rows.map(m => {
+
+          const mine =
+            m.sender_id ===
+              trainerUser?.id ||
+            m.sender_type ===
+              'trainer';
+
+          const receipt =
+            mine
+              ? `
+                <span class="seen ${m.seen_at ? 'read' : ''}">
+                  ${m.seen_at ? '✓✓' : '✓'}
+                </span>
+              `
+              : '';
+
+          return `
+            <div
+              class="admin-msg ${mine ? 'trainer' : 'visitor'}"
+            >
+
+              <div>
+                ${esc(m.message)}
+              </div>
+
+              <div class="meta">
+                <span>
+                  ${time(m.created_at)}
+                </span>
+
+                ${receipt}
+              </div>
+
+            </div>
+          `;
+
+        }).join('');
+
+      adminMessages.scrollTop =
+        adminMessages.scrollHeight;
+    }
+
+    async function selectConversation(
+      c,
+      closeDrawer = true
+    ) {
+
+      selectedConversation =
+        c;
+
+      selectedName.textContent =
+        c.visitor_name ||
+        'Client';
+
+      selectedAvatar.textContent =
+        (c.visitor_name || 'C')
+          .split(/\s+/)
+          .map(
+            x => x[0]
+          )
+          .join('')
+          .slice(0,2)
+          .toUpperCase();
+
+      const unread =
+        unreadFor(c);
+
+      selectedDetails.textContent =
+        `${c.fitness_goal || 'Fitness'} • started ${dateTime(c.created_at)}${unread ? ` • ${unread} unread` : ''}`;
+
+      statusBtn.textContent =
+        c.status === 'closed'
+          ? 'Reopen'
+          : 'Close';
+
+      statusBtn.classList.toggle(
+        'danger',
+        c.status !== 'closed'
+      );
+
+      adminChatInput.disabled =
+        c.status === 'closed';
+
+      adminChatInput.placeholder =
+        c.status === 'closed'
+          ? 'Conversation is closed.'
+          : 'Reply to your client…';
+
+      conversationState.classList.remove(
+        'hidden'
+      );
+
+      renderClientList();
+
+      renderConversationMessages();
+
+      await markUnreadSeen();
+
+      await setupConversationRealtime();
+
+      if (closeDrawer) {
+        closeDrawerFn();
+      }
+    }
+
+    async function markUnreadSeen() {
+
+      const unread =
+        messages.filter(
+          m =>
+            m.conversation_id ===
+              selectedConversation?.id &&
+            m.sender_type !==
+              'trainer' &&
+            !m.seen_at
+        );
+
+      for (
+        const row of unread
+      ) {
+
+        try {
+
+          await sb.rpc(
+            'mark_message_seen',
+            {
+              p_message_id:
+                row.id
+            }
+          );
+
+          row.seen_at =
+            new Date()
+              .toISOString();
+
+        } catch (_) {}
+
+      }
+
+      if (unread.length) {
+
+        renderClientList();
+
+        renderConversationMessages();
+      }
+    }
+
+    function stopChannels() {
+
+      if (messageChannel) {
+
+        sb.removeChannel(
+          messageChannel
+        );
+
+        messageChannel =
+          null;
+      }
+
+      if (presenceChannel) {
+
+        sb.removeChannel(
+          presenceChannel
+        );
+
+        presenceChannel =
+          null;
+      }
+    }
+
+    async function setupConversationRealtime() {
+
+      stopChannels();
+
+      if (!selectedConversation) {
+        return;
+      }
+
+      messageChannel =
+        sb
+          .channel(
+            `admin-messages-${selectedConversation.id}`
+          )
+          .on(
+            'postgres_changes',
+            {
+              event:'*',
+              schema:'public',
+              table:'messages',
+              filter:
+                `conversation_id=eq.${selectedConversation.id}`
+            },
+            async payload => {
+
+              const row =
+                payload.new ||
+                payload.old;
+
+              if (!row?.id) {
+                return;
+              }
+
+              const {
+                data
+              } = await sb
+                .from('messages')
+                .select(
+                  'id,conversation_id,sender_id,sender_type,message,created_at,seen_at'
+                )
+                .eq(
+                  'conversation_id',
+                  selectedConversation.id
+                )
+                .order(
+                  'created_at',
+                  {
+                    ascending:true
+                  }
+                );
+
+              messages =
+                data || [];
+
+              renderConversationMessages();
+
+              renderClientList();
+
+              if (
+                payload.eventType ===
+                  'INSERT' &&
+                payload.new?.sender_type !==
+                  'trainer'
+              ) {
+
+                notifyNewMessage(
+                  payload.new.message
+                );
+              }
+            }
+          )
+          .subscribe();
+
+      presenceChannel =
+        sb.channel(
+          `conversation:${selectedConversation.id}`,
+          {
+            config:{
+              presence:{
+                key:
+                  trainerUser.id
+              }
+            }
+          }
+        );
+
+      presenceChannel.on(
+        'presence',
+        {
+          event:'sync'
+        },
+        updatePresence
+      );
+
+      presenceChannel.on(
+        'presence',
+        {
+          event:'join'
+        },
+        updatePresence
+      );
+
+      presenceChannel.on(
+        'presence',
+        {
+          event:'leave'
+        },
+        updatePresence
+      );
+
+      presenceChannel.on(
+        'broadcast',
+        {
+          event:'typing'
+        },
+        ({payload}) => {
+
+          if (
+            payload?.role ===
+            'visitor'
+          ) {
+
+            adminTypingRow.classList.toggle(
+              'show',
+              Boolean(
+                payload.typing
+              )
+            );
+
+            clearTimeout(
+              adminTypingRow.hideTimer
+            );
+
+            if (
+              payload.typing
+            ) {
+
+              adminTypingRow.hideTimer =
+                setTimeout(
+                  () =>
+                    adminTypingRow.classList.remove(
+                      'show'
+                    ),
+                  2200
+                );
+            }
+          }
+        }
+      );
+
+      await presenceChannel.subscribe(
+        async status => {
+
+          if (
+            status ===
+            'SUBSCRIBED'
+          ) {
+
+            await presenceChannel.track({
+              role:'trainer',
+              typing:false,
+              at:Date.now()
+            });
+          }
+        }
+      );
+    }
+
+    function updatePresence() {
+
+      if (!presenceChannel) {
+        return;
+      }
+
+      const people =
+        Object.values(
+          presenceChannel.presenceState()
+        ).flat();
+
+      const online =
+        people.some(
+          p =>
+            p.role ===
+            'visitor'
+        );
+
+      selectedDetails.textContent =
+        `${selectedConversation?.fitness_goal || 'Fitness'} • ${online ? 'Client online' : 'Client offline'} • ${selectedConversation?.status || 'open'}`;
+    }
+
+    async function broadcastTyping(
+      typing
+    ) {
+
+      if (!presenceChannel) {
+        return;
+      }
+
+      try {
+
+        await presenceChannel.track({
+          role:'trainer',
+          typing,
+          at:Date.now()
+        });
+
+        await presenceChannel.send({
+          type:'broadcast',
+          event:'typing',
+          payload:{
+            role:'trainer',
+            typing
+          }
+        });
+
+      } catch (_) {}
+    }
+
+    async function sendTrainerMessage(
+      text
+    ) {
+
+      const clean =
+        text.trim();
+
+      if (
+        !clean ||
+        !selectedConversation ||
+        selectedConversation.status ===
+          'closed'
+      ) {
+        return;
+      }
+
+      const {
+        error
+      } = await sb
+        .from('messages')
+        .insert({
+          conversation_id:
+            selectedConversation.id,
+
+          sender_id:
+            trainerUser.id,
+
+          sender_type:
+            'trainer',
+
+          message:
+            clean
+        });
+
+      if (error) {
+
+        showError(
+          error.message
+        );
+
+        return;
+      }
+
+      adminChatInput.value =
+        '';
+
+      await broadcastTyping(
+        false
+      );
+    }
+
+    async function updateStatus() {
+
+      if (!selectedConversation) {
+        return;
+      }
+
+      const next =
+        selectedConversation.status ===
+          'closed'
+          ? 'open'
+          : 'closed';
+
+      const {
+        data,
+        error
+      } = await sb.rpc(
+        'update_conversation_status',
+        {
+          p_conversation_id:
+            selectedConversation.id,
+
+          p_status:
+            next
+        }
+      );
+
+      if (error) {
+
+        showError(
+          error.message
+        );
+
+        return;
+      }
+
+      selectedConversation =
+        data;
+
+      conversations =
+        conversations.map(
+          c =>
+            c.id === data.id
+              ? data
+              : c
+        );
+
+      renderClientList();
+
+      await selectConversation(
+        data,
+        false
+      );
+    }
+
+    function showError(msg) {
+
+      loginError.textContent =
+        msg;
+
+      setTimeout(
+        () => {
+          loginError.textContent =
+            '';
+        },
+        5000
+      );
+    }
+
+    async function notifyNewMessage(
+      message
+    ) {
+
+      document.title =
+        '🔴 New client message • FitForge';
+
+      if (
+        'Notification' in
+        window &&
+        Notification.permission ===
+          'granted'
+      ) {
+
+        try {
+
+          new Notification(
+            'FitForge — New Client Message',
+            {
+              body:
+                message.slice(
+                  0,
+                  120
+                )
+            }
+          );
+
+        } catch (_) {}
+      }
+
+      playBeep();
+
+      setTimeout(
+        () => {
+          document.title =
+            'FitForge | Trainer Dashboard';
+        },
+        3500
+      );
+    }
+
+    function playBeep() {
+
+      try {
+
+        const C =
+          window.AudioContext ||
+          window.webkitAudioContext;
+
+        if (!C) {
+          return;
+        }
+
+        const ctx =
+          new C();
+
+        const osc =
+          ctx.createOscillator();
+
+        const gain =
+          ctx.createGain();
+
+        osc.frequency.value =
+          780;
+
+        gain.gain.value =
+          .05;
+
+        osc.connect(gain);
+
+        gain.connect(
+          ctx.destination
+        );
+
+        osc.start();
+
+        osc.stop(
+          ctx.currentTime +
+          .12
+        );
+
+      } catch (_) {}
+    }
+
+    loginForm.addEventListener(
+      'submit',
+      async e => {
+
+        e.preventDefault();
+
+        loginError.textContent =
+          '';
+
+        const email =
+          document
+            .getElementById(
+              'trainerEmail'
+            )
+            .value
+            .trim();
+
+        const password =
+          document
+            .getElementById(
+              'trainerPassword'
+            )
+            .value;
+
+        const {
+          data,
+          error
+        } = await sb.auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+        if (error) {
+
+          loginError.textContent =
+            error.message;
+
+          return;
+        }
+
+        trainerUser =
+          data.user;
+
+        try {
+
+          await loadInbox();
+
+          setLoggedIn(true);
+
+          dashboardStatus.textContent =
+            'Connected • Trainer account active';
+
+        } catch (err) {
+
+          loginError.textContent =
+            err.message;
+
+          await sb.auth.signOut();
+        }
+      }
+    );
+
+    logoutBtn.addEventListener(
+      'click',
+      async () => {
+
+        stopChannels();
+
+        await sb.auth.signOut();
+
+        trainerUser =
+          null;
+
+        conversations =
+          [];
+
+        messages =
+          [];
+
+        setLoggedIn(
+          false
+        );
+
+        dashboardStatus.textContent =
+          'Signed out';
+      }
+    );
+
+    clientSearch.addEventListener(
+      'input',
+      renderClientList
+    );
+
+    statusBtn.addEventListener(
+      'click',
+      updateStatus
+    );
+
+    markSeenBtn.addEventListener(
+      'click',
+      markUnreadSeen
+    );
+
+    adminChatForm.addEventListener(
+      'submit',
+      async e => {
+
+        e.preventDefault();
+
+        await sendTrainerMessage(
+          adminChatInput.value
+        );
+      }
+    );
+
+    adminChatInput.addEventListener(
+      'input',
+      () => {
+
+        broadcastTyping(
+          Boolean(
+            adminChatInput.value.trim()
+          )
+        );
+
+        clearTimeout(
+          typingTimer
+        );
+
+        if (
+          adminChatInput.value.trim()
+        ) {
+
+          typingTimer =
+            setTimeout(
+              () =>
+                broadcastTyping(
+                  false
+                ),
+              1200
+            );
+        }
+      }
+    );
+
+    alertsBtn.addEventListener(
+      'click',
+      async () => {
+
+        if (
+          !(
+            'Notification' in
+            window
+          )
+        ) {
+
+          alertsBtn.textContent =
+            'Alerts unavailable';
+
+          return;
+        }
+
+        const p =
+          await Notification.requestPermission();
+
+        alertsBtn.textContent =
+          p === 'granted'
+            ? '🔔 Alerts On'
+            : p === 'denied'
+            ? '🔕 Alerts Blocked'
+            : '🔔 Enable Alerts';
+      }
+    );
+
+    openClientsBtn.addEventListener(
+      'click',
+      () => {
+
+        sidebar.classList.add(
+          'open'
+        );
+
+        drawerOverlay.classList.add(
+          'show'
+        );
+      }
+    );
+
+    function closeDrawerFn() {
+
+      sidebar.classList.remove(
+        'open'
+      );
+
+      drawerOverlay.classList.remove(
+        'show'
+      );
+    }
+
+    drawerOverlay.addEventListener(
+      'click',
+      closeDrawerFn
+    );
+
+    sb.auth.getSession()
+      .then(
+        async ({data}) => {
+
+          if (
+            data.session?.user
+          ) {
+
+            trainerUser =
+              data.session.user;
+
+            setLoggedIn(
+              true
+            );
+
+            try {
+
+              await loadInbox();
+
+              dashboardStatus.textContent =
+                'Connected • Trainer account active';
+
+            } catch (err) {
+
+              setLoggedIn(
+                false
+              );
+
+              dashboardStatus.textContent =
+                'Could not load trainer inbox';
+            }
+
+          } else {
+
+            setLoggedIn(
+              false
+            );
+          }
+        }
+      );
+  </script>
+
+</body>
+</html>
