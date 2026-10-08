@@ -1625,3 +1625,480 @@ body::after {
     opacity: .18;
   }
 }
+/* =========================================
+   3D MUSCULAR BODYBUILDER HERO
+   ========================================= */
+
+.bodybuilder-silhouette {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 300px;
+  height: 455px;
+
+  transform: translate(-50%, -50%);
+
+  filter:
+    drop-shadow(0 28px 28px rgba(0, 0, 0, .75))
+    drop-shadow(0 0 22px rgba(255, 48, 48, .12));
+
+  z-index: 2;
+}
+
+
+/* ---------- BASE BODY ---------- */
+
+.bodybuilder-silhouette > div {
+  position: absolute;
+
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      #4a4a4d 0%,
+      #29292d 25%,
+      #111114 62%,
+      #050506 100%
+    );
+
+  box-shadow:
+    inset -12px -15px 18px rgba(0, 0, 0, .65),
+    inset 8px 7px 13px rgba(255, 255, 255, .055);
+
+  border: 1px solid rgba(255,255,255,.035);
+}
+
+
+/* ---------- HEAD ---------- */
+
+.bb-head {
+  width: 58px;
+  height: 70px;
+
+  left: 121px;
+  top: 5px;
+
+  border-radius:
+    48% 48% 44% 44%;
+
+  transform:
+    perspective(80px)
+    rotateX(-4deg);
+}
+
+
+/* ---------- NECK ---------- */
+
+.bb-neck {
+  width: 53px;
+  height: 48px;
+
+  left: 124px;
+  top: 55px;
+
+  border-radius:
+    30% 30% 40% 40%;
+}
+
+
+/* ---------- TRAPS ---------- */
+
+.bb-trap {
+  width: 72px;
+  height: 62px;
+
+  top: 78px;
+
+  border-radius: 50%;
+}
+
+.bb-trap-left {
+  left: 85px;
+  transform: rotate(28deg);
+}
+
+.bb-trap-right {
+  right: 85px;
+  transform: rotate(-28deg);
+}
+
+
+/* ---------- SHOULDERS ---------- */
+
+.bb-shoulder {
+  width: 70px;
+  height: 82px;
+
+  top: 94px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 25%,
+      #626267 0%,
+      #35353a 27%,
+      #151518 65%,
+      #060607 100%
+    );
+}
+
+.bb-shoulder-left {
+  left: 42px;
+  transform: rotate(17deg);
+}
+
+.bb-shoulder-right {
+  right: 42px;
+  transform: rotate(-17deg);
+}
+
+
+/* ---------- CHEST ---------- */
+
+.bb-chest {
+  width: 83px;
+  height: 82px;
+
+  top: 104px;
+
+  border-radius:
+    55% 55% 42% 42%;
+}
+
+.bb-chest-left {
+  left: 67px;
+  transform:
+    rotate(-7deg)
+    skewY(-3deg);
+}
+
+.bb-chest-right {
+  right: 67px;
+  transform:
+    rotate(7deg)
+    skewY(3deg);
+}
+
+
+/* ---------- ABS ---------- */
+
+.bb-ab {
+  width: 53px;
+  height: 34px;
+
+  left: 123px;
+
+  border-radius:
+    38%
+    42%
+    35%
+    35%;
+
+  background:
+    radial-gradient(
+      ellipse at 30% 20%,
+      #55555a 0%,
+      #303035 35%,
+      #111113 76%,
+      #060607 100%
+    );
+}
+
+.bb-ab-1 {
+  top: 181px;
+}
+
+.bb-ab-2 {
+  top: 215px;
+}
+
+.bb-ab-3 {
+  top: 249px;
+}
+
+.bb-ab-4 {
+  top: 283px;
+  width: 48px;
+  left: 126px;
+}
+
+.bb-ab-5 {
+  top: 213px;
+  width: 39px;
+  left: 85px;
+
+  transform: scaleX(.62);
+}
+
+.bb-ab-6 {
+  top: 213px;
+  width: 39px;
+  left: 176px;
+
+  transform: scaleX(.62);
+}
+
+
+/* ---------- WAIST ---------- */
+
+.bb-waist {
+  width: 86px;
+  height: 95px;
+
+  top: 188px;
+  left: 107px;
+
+  clip-path: polygon(
+    14% 0,
+    86% 0,
+    100% 25%,
+    87% 100%,
+    13% 100%,
+    0 25%
+  );
+
+  background:
+    linear-gradient(
+      90deg,
+      #09090a,
+      #29292d 23%,
+      #18181b 50%,
+      #29292d 77%,
+      #09090a
+    );
+}
+
+
+/* ---------- BICEPS ---------- */
+
+.bb-bicep {
+  width: 54px;
+  height: 98px;
+
+  top: 148px;
+
+  border-radius:
+    48%
+    52%
+    40%
+    44%;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      #69696d 0%,
+      #3e3e43 23%,
+      #1b1b1e 58%,
+      #070708 100%
+    );
+}
+
+.bb-bicep-left {
+  left: 28px;
+  transform: rotate(9deg);
+}
+
+.bb-bicep-right {
+  right: 28px;
+  transform: rotate(-9deg);
+}
+
+
+/* ---------- FOREARMS ---------- */
+
+.bb-forearm {
+  width: 43px;
+  height: 135px;
+
+  top: 221px;
+
+  border-radius:
+    50px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #515155 0%,
+      #2e2e33 30%,
+      #111114 70%,
+      #050506 100%
+    );
+}
+
+.bb-forearm-left {
+  left: 20px;
+  transform: rotate(16deg);
+}
+
+.bb-forearm-right {
+  right: 20px;
+  transform: rotate(-16deg);
+}
+
+
+/* ---------- QUADS ---------- */
+
+.bb-quad {
+  width: 72px;
+  height: 152px;
+
+  top: 295px;
+
+  border-radius:
+    45%
+    45%
+    28%
+    30%;
+
+  background:
+    radial-gradient(
+      circle at 32% 18%,
+      #5d5d62 0%,
+      #37373c 25%,
+      #1a1a1d 62%,
+      #070708 100%
+    );
+}
+
+.bb-quad-left {
+  left: 70px;
+  transform:
+    rotate(3deg)
+    skewX(-3deg);
+}
+
+.bb-quad-right {
+  right: 70px;
+  transform:
+    rotate(-3deg)
+    skewX(3deg);
+}
+
+
+/* ---------- CALVES ---------- */
+
+.bb-calf {
+  width: 49px;
+  height: 112px;
+
+  top: 382px;
+
+  border-radius:
+    44% 44% 38% 38%;
+
+  background:
+    radial-gradient(
+      circle at 35% 20%,
+      #4f4f54,
+      #29292d 38%,
+      #111114 72%,
+      #050506 100%
+    );
+}
+
+.bb-calf-left {
+  left: 80px;
+  transform: rotate(4deg);
+}
+
+.bb-calf-right {
+  right: 80px;
+  transform: rotate(-4deg);
+}
+
+
+/* ---------- MUSCLE HIGHLIGHTS ---------- */
+
+.bb-highlight {
+  position: absolute;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.16),
+      rgba(255,255,255,0)
+    );
+
+  filter: blur(2px);
+
+  border: 0 !important;
+
+  box-shadow: none !important;
+}
+
+.bb-highlight-chest {
+  width: 85px;
+  height: 28px;
+
+  left: 108px;
+  top: 112px;
+
+  transform: rotate(-4deg);
+
+  opacity: .45;
+}
+
+.bb-highlight-arm-left {
+  width: 24px;
+  height: 54px;
+
+  left: 47px;
+  top: 159px;
+
+  border-radius: 50%;
+
+  opacity: .4;
+}
+
+.bb-highlight-arm-right {
+  width: 24px;
+  height: 54px;
+
+  right: 47px;
+  top: 159px;
+
+  border-radius: 50%;
+
+  opacity: .4;
+}
+
+
+/* ---------- RED EDGE LIGHT ---------- */
+
+.bodybuilder-silhouette::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 36px;
+
+  width: 225px;
+  height: 355px;
+
+  transform:
+    translateX(-50%)
+    skewX(-5deg);
+
+  border-right:
+    2px solid rgba(255,48,48,.22);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 480px) {
+
+  .bodybuilder-silhouette {
+    transform:
+      translate(-50%, -50%)
+      scale(.82);
+  }
+}
