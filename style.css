@@ -2068,23 +2068,384 @@ body::after {
 
 /* ---------- RED EDGE LIGHT ---------- */
 
+/* =========================================
+   FITFORGE 3D MUSCULAR HERO
+   ========================================= */
+
+.bodybuilder-silhouette {
+  position: absolute !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  left: 50% !important;
+  top: 52% !important;
+
+  width: 300px !important;
+  height: 455px !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  z-index: 20 !important;
+
+  filter:
+    drop-shadow(0 25px 25px rgba(0,0,0,.8))
+    drop-shadow(0 0 20px rgba(255,48,48,.16));
+}
+
+/* BODY PARTS */
+
+.bodybuilder-silhouette > div {
+  position: absolute !important;
+
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  background:
+    radial-gradient(
+      circle at 32% 25%,
+      #646468 0%,
+      #38383d 28%,
+      #19191c 60%,
+      #060607 100%
+    ) !important;
+
+  border: 1px solid rgba(255,255,255,.04);
+
+  box-shadow:
+    inset -10px -12px 18px rgba(0,0,0,.65),
+    inset 7px 6px 12px rgba(255,255,255,.07);
+
+  pointer-events: none;
+}
+
+
+/* HEAD */
+
+.bb-head {
+  width: 55px !important;
+  height: 67px !important;
+
+  left: 123px !important;
+  top: 8px !important;
+
+  border-radius: 48% 48% 43% 43%;
+
+  background:
+    radial-gradient(
+      circle at 35% 22%,
+      #5d5d61,
+      #252529 55%,
+      #070708 100%
+    ) !important;
+}
+
+
+/* NECK */
+
+.bb-neck {
+  width: 50px !important;
+  height: 48px !important;
+
+  left: 125px !important;
+  top: 58px !important;
+
+  border-radius: 35%;
+}
+
+
+/* TRAPS */
+
+.bb-trap {
+  width: 75px !important;
+  height: 58px !important;
+
+  top: 78px !important;
+
+  border-radius: 50%;
+}
+
+.bb-trap-left {
+  left: 80px !important;
+  transform: rotate(26deg);
+}
+
+.bb-trap-right {
+  right: 80px !important;
+  transform: rotate(-26deg);
+}
+
+
+/* SHOULDERS */
+
+.bb-shoulder {
+  width: 78px !important;
+  height: 83px !important;
+
+  top: 92px !important;
+
+  border-radius: 50%;
+}
+
+.bb-shoulder-left {
+  left: 34px !important;
+  transform: rotate(12deg);
+}
+
+.bb-shoulder-right {
+  right: 34px !important;
+  transform: rotate(-12deg);
+}
+
+
+/* CHEST */
+
+.bb-chest {
+  width: 87px !important;
+  height: 76px !important;
+
+  top: 105px !important;
+
+  border-radius: 50%;
+}
+
+.bb-chest-left {
+  left: 61px !important;
+  transform: rotate(-7deg);
+}
+
+.bb-chest-right {
+  right: 61px !important;
+  transform: rotate(7deg);
+}
+
+
+/* ABS */
+
+.bb-ab {
+  width: 47px !important;
+  height: 30px !important;
+
+  left: 126px !important;
+
+  border-radius: 40%;
+}
+
+.bb-ab-1 {
+  top: 176px !important;
+}
+
+.bb-ab-2 {
+  top: 208px !important;
+}
+
+.bb-ab-3 {
+  top: 240px !important;
+}
+
+.bb-ab-4 {
+  top: 272px !important;
+
+  width: 43px !important;
+  left: 128px !important;
+}
+
+.bb-ab-5 {
+  top: 207px !important;
+
+  width: 31px !important;
+  left: 91px !important;
+
+  transform: rotate(-5deg);
+}
+
+.bb-ab-6 {
+  top: 207px !important;
+
+  width: 31px !important;
+  left: 178px !important;
+
+  transform: rotate(5deg);
+}
+
+
+/* WAIST */
+
+.bb-waist {
+  width: 82px !important;
+  height: 95px !important;
+
+  left: 109px !important;
+  top: 181px !important;
+
+  clip-path: polygon(
+    12% 0,
+    88% 0,
+    100% 28%,
+    87% 100%,
+    13% 100%,
+    0 28%
+  );
+}
+
+
+/* BICEPS */
+
+.bb-bicep {
+  width: 58px !important;
+  height: 100px !important;
+
+  top: 148px !important;
+
+  border-radius: 50%;
+}
+
+.bb-bicep-left {
+  left: 24px !important;
+  transform: rotate(8deg);
+}
+
+.bb-bicep-right {
+  right: 24px !important;
+  transform: rotate(-8deg);
+}
+
+
+/* FOREARMS */
+
+.bb-forearm {
+  width: 43px !important;
+  height: 137px !important;
+
+  top: 218px !important;
+
+  border-radius: 45px;
+}
+
+.bb-forearm-left {
+  left: 15px !important;
+  transform: rotate(15deg);
+}
+
+.bb-forearm-right {
+  right: 15px !important;
+  transform: rotate(-15deg);
+}
+
+
+/* QUADS */
+
+.bb-quad {
+  width: 72px !important;
+  height: 153px !important;
+
+  top: 292px !important;
+
+  border-radius: 44% 44% 28% 28%;
+}
+
+.bb-quad-left {
+  left: 70px !important;
+  transform: rotate(3deg);
+}
+
+.bb-quad-right {
+  right: 70px !important;
+  transform: rotate(-3deg);
+}
+
+
+/* CALVES */
+
+.bb-calf {
+  width: 48px !important;
+  height: 105px !important;
+
+  top: 383px !important;
+
+  border-radius: 45%;
+}
+
+.bb-calf-left {
+  left: 82px !important;
+}
+
+.bb-calf-right {
+  right: 82px !important;
+}
+
+
+/* MUSCLE LIGHT */
+
+.bb-highlight {
+  position: absolute !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.17),
+      transparent
+    ) !important;
+
+  border: 0 !important;
+
+  box-shadow: none !important;
+
+  filter: blur(2px);
+}
+
+.bb-highlight-chest {
+  width: 110px !important;
+  height: 22px !important;
+
+  left: 95px !important;
+  top: 115px !important;
+
+  opacity: .4 !important;
+}
+
+.bb-highlight-arm-left {
+  width: 20px !important;
+  height: 55px !important;
+
+  left: 44px !important;
+  top: 158px !important;
+
+  border-radius: 50% !important;
+
+  opacity: .35 !important;
+}
+
+.bb-highlight-arm-right {
+  width: 20px !important;
+  height: 55px !important;
+
+  right: 44px !important;
+  top: 158px !important;
+
+  border-radius: 50% !important;
+
+  opacity: .35 !important;
+}
+
+
+/* RED RIM LIGHT */
+
 .bodybuilder-silhouette::after {
   content: "";
 
   position: absolute;
 
+  width: 245px;
+  height: 370px;
+
   left: 50%;
-  top: 36px;
+  top: 38px;
 
-  width: 225px;
-  height: 355px;
+  transform: translateX(-50%);
 
-  transform:
-    translateX(-50%)
-    skewX(-5deg);
-
-  border-right:
-    2px solid rgba(255,48,48,.22);
+  border-right: 2px solid rgba(255,48,48,.25);
 
   border-radius: 50%;
 
@@ -2092,13 +2453,13 @@ body::after {
 }
 
 
-/* ---------- MOBILE ---------- */
+/* MOBILE */
 
 @media (max-width: 480px) {
 
   .bodybuilder-silhouette {
     transform:
       translate(-50%, -50%)
-      scale(.82);
+      scale(.78) !important;
   }
 }
